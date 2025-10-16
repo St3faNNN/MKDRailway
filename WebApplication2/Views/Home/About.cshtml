@@ -1,0 +1,350 @@
+﻿@{
+    ViewBag.Title = "About Macedonian Railways";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Macedonian Railways</title>
+    <meta name="description" content="Learn about Macedonian Railways - connecting cities, bringing people together, and moving Macedonia forward with safe, reliable rail transport.">
+
+    <script src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fmacedonia-timeless.com%2Fger%2Fplan_yourtrip%2Fhow_toarrive%2Fcome_bytrain%2F&psig=AOvVaw2m9Ejs1HcLBjf1miS7WeM1&ust=1758832332011000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKjK3ZWf8o8DFQAAAAAdAAAAABAE"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --railway-blue: #1e3a8a;
+            --railway-blue-light: #3b82f6;
+            --railway-orange: #f97316;
+            --railway-gray: #e5e7eb;
+            --railway-dark: #1f2937;
+            --background: #fafafa;
+            --foreground: #1f2937;
+            --muted-foreground: #6b7280;
+            --primary-foreground: #ffffff;
+            --accent: #f97316;
+            --accent-foreground: #ffffff;
+            --secondary: #f8fafc;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--foreground);
+            background: linear-gradient(180deg, var(--background), var(--railway-gray));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--railway-blue), var(--railway-blue-light));
+            color: var(--primary-foreground);
+            padding: 5rem 1rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 48rem;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .story-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .story-image {
+            order: 2;
+        }
+
+        .story-image img {
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px -10px rgba(30, 58, 138, 0.2);
+        }
+
+        .story-content {
+            order: 1;
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+
+        .story-content p {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-primary {
+            font-weight: 600;
+            color: var(--railway-blue);
+        }
+
+        .highlight-accent {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .services-section {
+            margin-bottom: 5rem;
+        }
+
+        .services-section h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--foreground);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 20px -4px rgba(30, 58, 138, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        
+
+        .service-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+        }
+
+        .service-icon.passenger { color: var(--railway-blue); }
+        .service-icon.booking { color: #10b981; }
+        .service-icon.freight { color: #f59e0b; }
+        .service-icon.offers { color: #ef4444; }
+
+        .service-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .service-card p {
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        .vision-section {
+            margin-bottom: 5rem;
+        }
+
+        .vision-card {
+            background: rgba(248, 250, 252, 0.5);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 20px -4px rgba(30, 58, 138, 0.1);
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .vision-card h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+
+        .vision-card p {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            max-width: 64rem;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .contact-section p {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
+        .contact-section a {
+            color: var(--railway-blue);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .contact-section a:hover {
+            color: var(--railway-blue-light);
+        }
+
+        .phone-number {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: var(--accent-foreground);
+            border: none;
+            border-radius: 0.375rem;
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>About Macedonian Railways</h1>
+                <p>Connecting cities. Bringing people together. Moving Macedonia forward.</p>
+            </div>
+        </section>
+
+        <div class="container main-content">
+            <section class="story-section">
+                <div class="story-image">
+                    <img src="https://mzt.epizy.com/images/logo.svg" style="width:300px; height:300px"
+                         alt="Modern Macedonian railway train at station">
+                </div>
+                <div class="story-content">
+                    <h2>Who We Are</h2>
+                    <p>
+                        Founded with a vision of modernizing transportation,
+                        <span class="highlight-primary">Macedonian Railways</span> provides
+                        fast, safe, and affordable travel across the country. From bustling cities to quiet
+                        towns, our network connects communities and drives progress.
+                    </p>
+                    <p>
+                        With a growing fleet of modern trains, we are more than just a transport company —
+                        we are the <span class="highlight-accent">heartbeat of national travel</span>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="services-section">
+                <h2>What We Offer</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i data-lucide="users" class="service-icon passenger"></i>
+                        <h3>Passenger Transport</h3>
+                        <p>Comfortable journeys between all major destinations in Macedonia.</p>
+                    </div>
+                    <div class="service-card">
+                        <i data-lucide="monitor" class="service-icon booking"></i>
+                        <h3>Online Booking</h3>
+                        <p>Easy seat reservation and secure ticket purchase at your fingertips.</p>
+                    </div>
+                    <div class="service-card">
+                        <i data-lucide="package" class="service-icon freight"></i>
+                        <h3>Freight Transport</h3>
+                        <p>Reliable logistics solutions that support industries and trade.</p>
+                    </div>
+                    <div class="service-card">
+                        <i data-lucide="star" class="service-icon offers"></i>
+                        <h3>Special Offers</h3>
+                        <p>Discounts for students, seniors, and frequent travelers.</p>
+                    </div>
+                </div>
+            </section>
+
+            
+
+            <section class="contact-section">
+                
+
+
+                @Html.ActionLink(
+"Book Tour next Journey",           
+"Index",                    
+"Trains",                   
+null,                       
+new { @class = "btn btn-outline" } 
+)
+
+
+              
+            </section>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+    
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-8px)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@using WebApplication2.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<main aria-labelledby="title" class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-body p-5">
+
+                    <h2 class="text-center mb-3 fw-bold" id="title">Welcome</h2>
+                    <p class="text-muted text-center mb-4">
+                        Sign in to your account and continue your journey with us.
+                        Don’t have one yet? <a href="@Url.Action("Register", "Account")">Register now</a>.
+                    </p>
+
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Email, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control rounded-pill", placeholder = "Enter your email" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Password, new { @class = "form-label fw-semibold" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control rounded-pill", placeholder = "Enter your password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-check mb-3">
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                            @Html.LabelFor(m => m.RememberMe, new { @class = "form-check-label" })
+                        </div>
+
+                        <div class="d-grid">
+                            <input type="submit" value="Log in" class="btn btn-dark btn-lg rounded-pill shadow-sm" />
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <a href="@Url.Action("ForgotPassword", "Account")" class="small text-decoration-none">Forgot your password?</a>
+                        </div>
+                    }
+
+                    <hr class="my-4" />
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

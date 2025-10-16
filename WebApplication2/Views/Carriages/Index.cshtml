@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebApplication2.Models.Carriage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Train.LineNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarriageNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Train.LineNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarriageNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CarriageId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CarriageId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CarriageId })
+        </td>
+    </tr>
+}
+
+</table>

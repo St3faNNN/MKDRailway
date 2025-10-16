@@ -1,0 +1,65 @@
+﻿@model WebApplication2.Models.Ticket
+
+@{
+    ViewBag.Title = "Ticket Details";
+}
+
+<div class="container my-5">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-dark text-white text-center py-3">
+            <h2 class="mb-0">Your Ticket</h2>
+            <small class="text-light">Macedonian Railways</small>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Train</h5>
+                    <p class="mb-0">Line <span class="badge bg-primary">@Model.Train.LineNumber</span></p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Seat</h5>
+                    <p class="mb-0">
+                        Carriage <span class="badge bg-secondary">@Model.Seat.Carriage.CarriageNumber</span>
+                        — Seat <span class="badge bg-success">@Model.Seat.SeatNumber</span>
+                    </p>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Passenger ID</h5>
+                    <p class="mb-0">@Model.UserId</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Purchase Date</h5>
+                    <p class="mb-0">@Model.PurchaseDate.ToString("dd MMM yyyy, HH:mm")</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer bg-light text-center">
+            @Html.ActionLink("Back to My Tickets", "MyTickets", null, new { @class = "btn btn-outline-dark" })
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card-footer {
+        border-radius: 0 0 15px 15px;
+    }
+</style>

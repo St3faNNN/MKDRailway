@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<main aria-labelledby="title" class="contact-page">
+    <h2 id="title">@ViewBag.Title</h2>
+    <h3>We’re here to help you with all your railway travel needs</h3>
+
+    <section class="contact-info">
+        <p>
+            Do you have questions about tickets, timetables, or railway services?
+            Feel free to reach out to us via phone, email, or by visiting one of our local offices.
+        </p>
+
+        <address>
+            <strong>Head Office – Macedonian Railways</strong><br />
+            Blvd. Jane Sandanski 12<br />
+            Skopje, North Macedonia<br />
+            <abbr title="Phone">Tel:</abbr> +389 (0)2 3123 456<br />
+            <abbr title="Fax">Fax:</abbr> +389 (0)2 3123 789
+        </address>
+
+        <address>
+            <strong>Customer Support:</strong> <a href="mailto:support@macrailways.mk">support@macrailways.mk</a><br />
+            <strong>Ticketing Info:</strong> <a href="mailto:tickets@macrailways.mk">tickets@macrailways.mk</a><br />
+            <strong>Corporate Inquiries:</strong> <a href="mailto:info@macrailways.mk">info@macrailways.mk</a>
+        </address>
+    </section>
+
+    <section class="office-hours">
+        <h4>Office Hours</h4>
+        <p>
+            Monday – Friday: 08:00 – 18:00<br />
+            Saturday: 09:00 – 14:00<br />
+            Sunday & Holidays: Closed
+        </p>
+    </section>
+
+    <section class="contact-form">
+        <h4>Send Us a Message</h4>
+        <form method="post" action="/Contact/Submit">
+            <div>
+                <label for="Name">Your Name</label><br />
+                <input type="text" id="Name" name="Name" required />
+            </div>
+            <div>
+                <label for="Email">Your Email</label><br />
+                <input type="email" id="Email" name="Email" required />
+            </div>
+            <div>
+                <label for="Message">Message</label><br />
+                <textarea id="Message" name="Message" rows="4" required></textarea>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+</main>

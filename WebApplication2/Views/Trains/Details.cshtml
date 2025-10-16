@@ -1,0 +1,96 @@
+﻿@model WebApplication2.Models.Train
+
+@{
+    ViewBag.Title = "Train Details";
+}
+
+<div class="container my-5">
+
+    <div class="card shadow-lg border-0 mb-5">
+        <div class="card-body bg-primary text-white rounded-top">
+            <h2 class="card-title">Train @Model.LineNumber</h2>
+            <p class="mb-1">
+                <strong>Departure:</strong> @Model.StationName
+                <span class="badge bg-light text-dark">@Model.DepartureTime.ToString(@"hh\:mm")</span>
+            </p>
+            <p class="mb-1">
+                <strong>Arrival:</strong>
+                <span class="badge bg-light text-dark">@Model.ArrivalTime.ToString(@"hh\:mm")</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <span class="badge bg-success px-3 py-2 me-2">Available</span>
+        <span class="badge bg-danger px-3 py-2 me-2">Taken</span>
+        <span class="badge bg-secondary px-3 py-2">Selected</span>
+    </div>
+
+    @foreach (var carriage in Model.Carriages)
+    {
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white">
+                Carriage @carriage.CarriageNumber
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-start">
+                    @foreach (var seat in carriage.Seats)
+                    {
+                        var seatClass = seat.IsAvailable
+                            ? "seat available"
+                            : "seat taken";
+
+                        <div class="@seatClass m-2 d-flex flex-column align-items-center justify-content-center">
+                            <span class="fw-bold">@seat.SeatNumber</span>
+
+                            @if (seat.IsAvailable)
+                            {
+                                @Html.ActionLink(
+                                    "Reserve",
+                                    "Reserve",
+                                    "Tickets",
+                                    new { trainId = Model.TrainId, seatId = seat.SeatId },
+                                    new { @class = "btn btn-sm btn-light mt-2 fw-bold reserve-btn" }
+                                )
+                            }
+                            else
+                            {
+                                <span class="badge bg-light text-dark mt-2">Taken</span>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .seat {
+        width: 90px;
+        height: 90px;
+        border-radius: 12px;
+        color: white;
+        text-align: center;
+        font-size: 15px;
+        padding: 10px;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+        .seat.available {
+            background: linear-gradient(135deg, #28a745, #218838);
+        }
+
+            
+
+        .seat.taken {
+            background: linear-gradient(135deg, #dc3545, #b52a37);
+            opacity: 0.8;
+        }
+
+    .reserve-btn {
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+</style>

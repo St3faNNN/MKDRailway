@@ -1,0 +1,80 @@
+﻿@model WebApplication2.Models.Train
+
+@{
+    ViewBag.Title = "Create Train";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg rounded">
+        <div class="card-header bg-primary text-white">
+            <h3><i class="fas fa-train"></i> Add New Train</h3>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.LineNumber, new { @class = "form-label fw-bold" })
+                    @Html.TextBoxFor(model => model.LineNumber, new { @class = "form-control", placeholder = "e.g. R200" })
+                    @Html.ValidationMessageFor(model => model.LineNumber, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.StationName, new { @class = "form-label fw-bold" })
+                    @Html.TextBoxFor(model => model.StationName, new { @class = "form-control", placeholder = "Departure → Arrival (e.g. Skopje - Bitola)" })
+                    @Html.ValidationMessageFor(model => model.StationName, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        @Html.LabelFor(model => model.Date, new { @class = "form-label fw-bold" })
+                        @Html.TextBoxFor(model => model.Date, new { @class = "form-control", type = "date" })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        @Html.LabelFor(model => model.DepartureTime, new { @class = "form-label fw-bold" })
+                        @Html.TextBoxFor(model => model.DepartureTime, new { @class = "form-control", type = "time" })
+                        @Html.ValidationMessageFor(model => model.DepartureTime, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        @Html.LabelFor(model => model.ArrivalTime, new { @class = "form-label fw-bold" })
+                        @Html.TextBoxFor(model => model.ArrivalTime, new { @class = "form-control", type = "time" })
+                        @Html.ValidationMessageFor(model => model.ArrivalTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        @Html.LabelFor(model => model.NumberOfSeats, new { @class = "form-label fw-bold" })
+                        @Html.TextBoxFor(model => model.NumberOfSeats, new { @class = "form-control", placeholder = "e.g. 120" })
+                        @Html.ValidationMessageFor(model => model.NumberOfSeats, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        @Html.LabelFor(model => model.NumberOfCarriages, new { @class = "form-label fw-bold" })
+                        @Html.TextBoxFor(model => model.NumberOfCarriages, new { @class = "form-control", placeholder = "e.g. 4" })
+                        @Html.ValidationMessageFor(model => model.NumberOfCarriages, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Save Train
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+}

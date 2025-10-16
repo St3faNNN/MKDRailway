@@ -1,0 +1,100 @@
+﻿@model IEnumerable<WebApplication2.Models.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+
+    var groupedTickets = Model
+        .GroupBy(t => t.Train.LineNumber)
+        .Select(g => new
+        {
+            Line = g.Key,
+            Purchased = g.Count(),
+            Capacity = g.First().Train.Carriages.SelectMany(c => c.Seats).Count()
+        })
+        .ToList();
+
+    var lineLabels = string.Join(",", groupedTickets.Select(g => $"'{g.Line}'"));
+    var purchasedCounts = string.Join(",", groupedTickets.Select(g => g.Purchased));
+    var totalSeats = string.Join(",", groupedTickets.Select(g => g.Capacity));
+}
+
+<h2>Tickets</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Seat.SeatId)</th>
+        <th>@Html.DisplayNameFor(model => model.Train.LineNumber)</th>
+        <th>@Html.DisplayNameFor(model => model.UserId)</th>
+        <th>@Html.DisplayNameFor(model => model.PurchaseDate)</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Seat.SeatId)</td>
+            <td>@Html.DisplayFor(modelItem => item.Train.LineNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+            <td>@Html.DisplayFor(modelItem => item.PurchaseDate)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TicketId })
+            </td>
+        </tr>
+    }
+</table>
+
+<hr />
+
+<h3>Train Capacity vs Purchased Tickets</h3>
+<canvas id="ticketsChart" width="400" height="200"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('ticketsChart').getContext('2d');
+        var ticketsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(lineLabels)],
+                datasets: [
+                    {
+                        label: 'Total Seats (Capacity)',
+                        data: [@totalSeats],
+                        backgroundColor: 'rgba(200, 200, 200, 0.5)',
+                        borderColor: 'rgba(200, 200, 200, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Purchased Tickets',
+                        data: [@purchasedCounts],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)', 
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    title: {
+                        display: true,
+                        text: 'Tickets Purchased vs Train Capacity per Line'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+    </script>
+}

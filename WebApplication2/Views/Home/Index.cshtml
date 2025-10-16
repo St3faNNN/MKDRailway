@@ -1,0 +1,530 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macedonian Railways - Connecting Macedonia Since 1873</title>
+    <meta name="description" content="Experience safe, comfortable, and reliable train travel across Macedonia with Macedonian Railways. Modern rail services connecting cities and communities nationwide.">
+    <meta name="keywords" content="Macedonia, railway, train travel, public transport, rail tickets, train routes">
+
+    <style>
+        :root {
+            --railway-blue: #002147;
+            --railway-gold: #FFD700;
+            --railway-red: #DC143C;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --gradient-hero: linear-gradient(135deg, #002147, #1a365d);
+            --gradient-accent: linear-gradient(90deg, #FFD700, #FFC107);
+            --shadow-railway: 0 20px 40px -10px rgba(0, 33, 71, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: url('https://webalkans.eu/wp-content/uploads/2024/03/MK-BG-railway-1-scaled.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-hero);
+            opacity: 0.85;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--white);
+            max-width: 1200px;
+            padding: 0 2rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .hero-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .train-icon {
+            width: 3rem;
+            height: 3rem;
+            animation: trainMove 3s ease-in-out infinite;
+        }
+
+        .hero-title h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--railway-gold);
+            color: var(--railway-blue);
+            box-shadow: var(--shadow-railway);
+        }
+
+       
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        
+
+        .feature-icon {
+            width: 2rem;
+            height: 2rem;
+            color: var(--railway-gold);
+            margin: 0 auto 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .wave-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+        }
+
+        .wave-svg {
+            width: 100%;
+            height: 5rem;
+            fill: var(--light-gray);
+        }
+
+        .intro-section {
+            padding: 5rem 2rem;
+            width: 100%;
+            background: var(--light-gray);
+        }
+
+        .container {
+            width: 100%;
+            max-width: none; 
+            margin: 0;
+        }
+
+        .intro-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .badge {
+            background: var(--railway-gold);
+            color: var(--railway-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .intro-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-title .highlight {
+            color: var(--railway-blue);
+        }
+
+        .intro-subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .stat-icon-primary { background: rgba(0, 33, 71, 0.1); }
+        .stat-icon-gold { background: rgba(255, 215, 0, 0.2); }
+        .stat-icon-red { background: rgba(220, 20, 60, 0.2); }
+
+        .stat-icon {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .stat-icon-primary .stat-icon { color: var(--railway-blue); }
+        .stat-icon-gold .stat-icon { color: var(--railway-gold); }
+        .stat-icon-red .stat-icon { color: var(--railway-red); }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .info-card {
+            background: var(--white);
+            border: 2px solid #e9ecef;
+            border-radius: 1rem;
+            padding: 3rem;
+            box-shadow: var(--shadow-railway);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .info-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-content p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+
+        .feature-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot-primary { background: var(--railway-blue); }
+        .dot-gold { background: var(--railway-gold); }
+        .dot-red { background: var(--railway-red); }
+
+        .info-visual {
+            background: var(--gradient-hero);
+            border-radius: 1rem;
+            padding: 2rem;
+            color: var(--white);
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-visual h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .info-visual p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .visual-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .visual-stat {
+            text-align: center;
+        }
+
+        .visual-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .visual-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        
+
+        
+
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            stroke-width: 0;
+            stroke: currentColor;
+            fill: currentColor;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-title">
+                
+                <h1>Macedonian <span class="gradient-text">Railways</span></h1>
+            </div>
+
+            <p class="hero-subtitle">
+                Experience safe, comfortable, and reliable train travel across Macedonia.
+                Connecting cities, towns, and communities with modern railway services that bring people together.
+            </p>
+
+            <div class="hero-buttons">
+                @Html.ActionLink(
+    "Explore Routes",           
+    "Index",                    
+    "Trains",                   
+    null,                       
+    new { @class = "btn btn-outline" } 
+)
+
+            </div>
+
+            <div class="feature-cards">
+                <div class="feature-card">
+                    
+                    <h3>Nationwide Network</h3>
+                    <p>Extensive rail network connecting major cities and regional destinations across Macedonia</p>
+                </div>
+
+                <div class="feature-card">
+                    
+                    <h3>On-Time Service</h3>
+                    <p>Reliable schedules with punctual departures and arrivals for stress-free travel</p>
+                </div>
+
+                <div class="feature-card">
+                   
+                    <h3>Comfort & Safety</h3>
+                    <p>Modern trains with comfortable seating and strict safety protocols for all passengers</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="wave-bottom">
+            
+        </div>
+    </section>
+
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-header">
+                <h2 class="intro-title">
+                    Connecting Macedonia for Over 150 Years
+                </h2>
+                <p class="intro-subtitle">
+                    From our historic beginnings to modern high-speed rail, Macedonian Railways has been
+                    the backbone of transportation, fostering economic growth and bringing communities together
+                    across our beautiful nation.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon-wrapper stat-icon-primary">
+                        
+                    </div>
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Daily Routes</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon-wrapper stat-icon-gold">
+                        
+                    </div>
+                    <div class="stat-number">2.0</div>
+                    <div class="stat-label">Customer Rating</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon-wrapper stat-icon-red">
+                        
+                    </div>
+                    <div class="stat-number">50.2%</div>
+                    <div class="stat-label">Safety Record</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon-wrapper stat-icon-gold">
+                        
+                    </div>
+                    <div class="stat-number">20%</div>
+                    <div class="stat-label">On-Time Performance</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-content">
+                    <h3>Modern Rail Solutions for Today's Travelers</h3>
+                    <p>
+                        Our commitment to excellence drives continuous investment in modern infrastructure,
+                        comfortable trains, and innovative services that make rail travel the preferred
+                        choice for both business and leisure travelers.
+                    </p>
+                    <ul class="feature-list">
+                        <li>
+                            <div class="feature-dot dot-primary"></div>
+                            <span>Real-time journey tracking and updates</span>
+                        </li>
+                        <li>
+                            <div class="feature-dot dot-gold"></div>
+                            <span>Online ticket booking and seat selection</span>
+                        </li>
+                        <li>
+                            <div class="feature-dot dot-red"></div>
+                            <span>Comfortable seating and modern amenities</span>
+                        </li>
+                    </ul>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+</body>
+</html>

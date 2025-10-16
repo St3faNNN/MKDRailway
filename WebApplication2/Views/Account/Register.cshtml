@@ -1,0 +1,60 @@
+﻿@model WebApplication2.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<main aria-labelledby="title" class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-body p-5">
+
+                    <h2 id="title" class="text-center mb-3 fw-bold">Create Your Account</h2>
+                    <p class="text-muted text-center mb-4">
+                        Join us today and unlock a smoother, faster ticket booking experience.
+                        Already have an account? <a href="@Url.Action("Login", "Account")">Log in here</a>.
+                    </p>
+
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Email, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control rounded-pill", placeholder = "Enter your email address" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Password, new { @class = "form-label fw-semibold" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control rounded-pill", placeholder = "Create a password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label fw-semibold" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control rounded-pill", placeholder = "Confirm your password" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <input type="submit" value="Register" class="btn btn-dark btn-lg rounded-pill shadow-sm" />
+                        </div>
+                    }
+
+                    <hr class="my-4" />
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,155 @@
+﻿@model IEnumerable<WebApplication2.Models.Train>
+
+@{
+    ViewBag.Title = "Train Schedule & Booking";
+    var upcomingTrains = ViewBag.UpcomingTrains as List<WebApplication2.Models.Train>;
+    var pastTrains = ViewBag.PastTrains as List<WebApplication2.Models.Train>;
+}
+
+<main class="train-index container">
+    <section class="text-center my-5">
+        <h1 class="fw-bold display-5 text-primary">Macedonian Railways</h1>
+        <p class="lead text-muted">
+            Find the perfect train for your journey.
+            Search by line, station, or date – then book your seat instantly.
+            Simple. Fast. Reliable.
+        </p>
+    </section>
+
+    <section class="search-filters card p-4 mb-5 shadow-lg border-0">
+        <h4 class="mb-4 text-dark fw-semibold">Search Trains</h4>
+        @using (Html.BeginForm("Index", "Trains", FormMethod.Get))
+        {
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Line Number</label>
+                    @Html.TextBox("searchLine", Request.QueryString["searchLine"], new { @class = "form-control", placeholder = "e.g. R200" })
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Station</label>
+                    @Html.TextBox("searchStation", Request.QueryString["searchStation"], new { @class = "form-control", placeholder = "Skopje - Bitola" })
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Date</label>
+                    @Html.TextBox("searchDate", Request.QueryString["searchDate"], new { @class = "form-control", @type = "date" })
+                </div>
+                <div class="col-md-2 d-flex align-items-end gap-2">
+                    <input type="submit" value="Search" class="btn btn-primary w-100" />
+                    <a href="@Url.Action("Index", "Trains")" class="btn btn-outline-secondary w-100">Clear</a>
+                </div>
+            </div>
+        }
+    </section>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="mb-4 text-end">
+            @Html.ActionLink("Add New Train", "Create", null, new { @class = "btn btn-success shadow-sm" })
+        </div>
+    }
+
+    <section class="mb-5">
+        <h4 class="mb-3 text-dark fw-semibold">Upcoming Trains</h4>
+        <table class="table table-striped table-hover align-middle shadow-sm rounded">
+            <thead class="table-dark">
+                <tr>
+                    <th>Line</th>
+                    <th>Station Route</th>
+                    <th>Date</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (upcomingTrains == null || !upcomingTrains.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            No upcoming trains found.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in upcomingTrains)
+                    {
+                        <tr>
+                            <td><span class="badge bg-primary fs-6">@item.LineNumber</span></td>
+                            <td>@item.StationName</td>
+                            <td>@item.Date.ToString("MM/dd/yyyy")</td>
+                            <td>@item.DepartureTime</td>
+                            <td>@item.ArrivalTime</td>
+                            <td class="text-center">
+                                @Html.ActionLink("Book", "Details", new { id = item.TrainId }, new { @class = "btn btn-sm btn-success me-2" })
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.TrainId }, new { @class = "btn btn-sm btn-warning me-2" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.TrainId }, new { @class = "btn btn-sm btn-danger" })
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h4 class="mb-3 text-dark fw-semibold">Past Trains</h4>
+        <table class="table table-striped table-hover align-middle shadow-sm rounded">
+            <thead class="table-secondary">
+                <tr>
+                    <th>Line</th>
+                    <th>Station Route</th>
+                    <th>Date</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                <th class="text-center">Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (pastTrains == null || !pastTrains.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            No past trains.
+                        </td>
+                    </tr>
+                    } 
+                else
+                {
+                    foreach (var item in pastTrains)
+                    {
+            <tr>
+                <td><span class="badge bg-secondary fs-6">@item.LineNumber</span></td>
+                <td>@item.StationName</td>
+                <td>@item.Date.ToString("MM/dd/yyyy")</td>
+                <td>@item.DepartureTime</td>
+                <td>@item.ArrivalTime</td>
+                
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Book", "Details", new { id = item.TrainId }, new { @class = "btn btn-sm btn-success me-2" })
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.TrainId }, new { @class = "btn btn-sm btn-warning me-2" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.TrainId }, new { @class = "btn btn-sm btn-danger" })
+                        
+                    </td>}</tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </section>
+
+    <footer class="text-center text-muted mt-5">
+        <small>
+            Tip: Click <span class="text-success">Book</span> to reserve your seat instantly.
+            Your tickets will appear under <b>My Tickets</b>.
+        </small>
+    </footer>
+</main>

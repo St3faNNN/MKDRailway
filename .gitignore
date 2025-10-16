@@ -1,0 +1,17 @@
+# Visual Studio user-specific files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build directories
+bin/
+obj/
+
+# Publish directories
+*.Publish.xml
+publish/
+
+# Others
+*.log

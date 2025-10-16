@@ -1,0 +1,108 @@
+﻿@{
+    var upcoming = ViewBag.UpcomingTickets as List<WebApplication2.Models.Ticket>;
+    var past = ViewBag.PastTickets as List<WebApplication2.Models.Ticket>;
+}
+
+<main class="container my-5">
+    <section class="text-center mb-5">
+        <h1 class="fw-bold text-primary">My Tickets</h1>
+        <p class="lead text-muted">Here are your train journeys.</p>
+    </section>
+
+    <h3 class="text-success mb-3">Upcoming Tickets</h3>
+    @if (upcoming == null || !upcoming.Any())
+    {
+        <div class="alert alert-info">No upcoming tickets.</div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var ticket in upcoming)
+            {
+                <div class="col-md-6">
+                    <div class="card shadow-lg border-0 rounded-3 h-100">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between">
+                            <span>Train #@ticket.Train.LineNumber</span>
+                            <small>Purchase Date: @ticket.PurchaseDate.ToString("MM/dd/yyyy HH:mm")</small>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Route:</strong> @ticket.Train.StationName</p>
+                            <p><strong>Date:</strong> @ticket.Train.Date.ToString("MM/dd/yyyy")</p>
+                            <p>
+                                <strong>Departure:</strong> @ticket.Train.DepartureTime.ToString("t")
+                                | <strong>Arrival:</strong> @ticket.Train.ArrivalTime.ToString("t")
+                            </p>
+                            <p>
+                                <strong>Carriage:</strong> @ticket.Seat.Carriage.CarriageNumber
+                                | <strong>Seat:</strong> @ticket.Seat.SeatNumber
+                            </p>
+                            <p>
+                                @Html.ActionLink(
+                                    "Details",          
+                                    "Details",             
+                                    "Tickets",             
+                                    new { id = ticket.TicketId }, 
+                                    new { @class = "btn btn-sm btn-success me-2" } 
+                                )
+                            </p>
+
+                            <p>
+                                @Html.ActionLink(
+                                    "Delete",          
+                                    "Delete",            
+                                    "Tickets",             
+                                    new { id = ticket.TicketId }, 
+        new { @class = "btn btn-sm btn-danger" } 
+                                )
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <h3 class="text-danger mt-5 mb-3">Past Tickets</h3>
+    @if (past == null || !past.Any())
+    {
+        <div class="alert alert-secondary">No past tickets.</div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var ticket in past)
+            {
+                <div class="col-md-6">
+                    <div class="card shadow border-0 rounded-3 h-100">
+                        <div class="card-header bg-dark text-white d-flex justify-content-between">
+                            <span>Train #@ticket.Train.LineNumber</span>
+                            <small>@ticket.PurchaseDate.ToString("MM/dd/yyyy HH:mm")</small>
+                         
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Route:</strong> @ticket.Train.StationName</p>
+                            <p><strong>Date:</strong> @ticket.Train.Date.ToString("MM/dd/yyyy")</p>
+                            <p>
+                                <strong>Departure:</strong> @ticket.Train.DepartureTime.ToString("t")
+                                | <strong>Arrival:</strong> @ticket.Train.ArrivalTime.ToString("t")
+                            </p>
+                            <p>
+                                <strong>Carriage:</strong> @ticket.Seat.Carriage.CarriageNumber
+                                | <strong>Seat:</strong> @ticket.Seat.SeatNumber
+                            </p>
+                            <p>
+                                @Html.ActionLink(
+                                    "Details",          
+                                    "Details",             
+                                    "Tickets",             
+                                    new { id = ticket.TicketId }, 
+                                    new { @class = "btn btn-sm btn-success me-2" } 
+                                )
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</main>
